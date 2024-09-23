@@ -1,5 +1,6 @@
 package com.kehes.intents
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -21,10 +22,18 @@ class MainActivity : AppCompatActivity() {
     private fun setUpSayHelloButton() {
         binding.sayHelloBtn.setOnClickListener {
             if (isValid()) {
-
-            } else Toast.makeText(this, "You need input your name", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, HelloActivity::class.java)
+                intent.putExtra(ArgumentKey.NAME.name, binding.nameInputView.text.toString())
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "You need input your name", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
-    private fun isValid() = binding.nameInputView.text.isNullOrBlank()
+    private fun isValid() = !binding.nameInputView.text.isNullOrBlank()
+}
+
+enum class ArgumentKey() {
+    NAME
 }
