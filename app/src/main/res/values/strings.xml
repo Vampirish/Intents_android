@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Intents</string>
+    <string name="input_your_name">input your name</string>
+    <string name="say_hello">Say hello!</string>
 </resources>
