@@ -1,9 +1,13 @@
 package com.kehes.intents
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -18,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setUpSayHelloButton()
+        setUpTakePhotoButton()
     }
     private fun setUpSayHelloButton() {
         binding.sayHelloBtn.setOnClickListener {
@@ -30,6 +35,23 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun setUpTakePhotoButton() {
+        binding.takePhotoBtn.setOnClickListener {
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            cameraResult.launch(intent)
+        }
+    }
+
+    private val cameraResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val photo = it.data?.extras?.get("data") as Bitmap?
+                photo?.let {
+                    binding.newImageView.setImageBitmap(it)
+                }
+            }
+        }
 
     private fun isValid() = !binding.nameInputView.text.isNullOrBlank()
 }
