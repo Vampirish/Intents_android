@@ -3,6 +3,7 @@ package com.kehes.intents
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         setUpSayHelloButton()
         setUpTakePhotoButton()
+        setUpOpenBrowserButton()
     }
     private fun setUpSayHelloButton() {
         binding.sayHelloBtn.setOnClickListener {
@@ -52,6 +54,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+    private fun setUpOpenBrowserButton() {
+        binding.openBrowserBtn.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/vampirish"))
+            startActivity(intent)
+        }
+    }
 
     private fun isValid() = !binding.nameInputView.text.isNullOrBlank()
 }
