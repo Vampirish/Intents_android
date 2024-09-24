@@ -57,4 +57,13 @@
         android:textColor="@color/white"
         android:textAllCaps="true"
         android:text="@string/open_browser"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/send_text_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:textColor="@color/white"
+        android:textAllCaps="true"
+        android:text="@string/send_text"/>
 </LinearLayout>

@@ -5,4 +5,5 @@
     <string name="hello_any">Hello %s</string>
     <string name="take_picture">Take picture</string>
     <string name="open_browser">Open browser</string>
+    <string name="send_text">Send text</string>
 </resources>

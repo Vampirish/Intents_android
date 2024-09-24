@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         setUpSayHelloButton()
         setUpTakePhotoButton()
         setUpOpenBrowserButton()
+        setUpSendTextButton()
     }
     private fun setUpSayHelloButton() {
         binding.sayHelloBtn.setOnClickListener {
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     private val cameraResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
-                val photo = it.data?.extras?.get("data") as Bitmap?
+                val photo = it.data?.extras?.get("data") as? Bitmap?
                 photo?.let {
                     binding.newImageView.setImageBitmap(it)
                 }
@@ -59,6 +60,20 @@ class MainActivity : AppCompatActivity() {
         binding.openBrowserBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/vampirish"))
             startActivity(intent)
+        }
+    }
+
+    private fun setUpSendTextButton() {
+        binding.sendTextBtn.setOnClickListener {
+            if (isValid()) {
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.putExtra(Intent.EXTRA_TEXT, binding.nameInputView.text.toString())
+                intent.type = "text/plain"
+                val choseIntent = Intent.createChooser(intent, "Title")
+                startActivity(choseIntent)
+            } else {
+                Toast.makeText(this, "You need input your name", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
